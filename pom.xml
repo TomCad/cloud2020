@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.wonders.springcloud</groupId>
+  <artifactId>cloud2020</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+
+  <modules>
+      <module>cloud-provider-payment8001</module>
+      <module>cloud-consumer-order80</module>
+      <module>cloud-api-commons</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <junit.version>4.12</junit.version>
+    <log4j.version>1.2.17</log4j.version>
+    <lombok.version>1.18.10</lombok.version>
+    <mysql.version>5.1.47</mysql.version>
+    <druid.version>1.1.16</druid.version>
+    <mybatis.spring.boot.version>2.1.1</mybatis.spring.boot.version>
+  </properties>
+
+<!-- DependencyManagement与dependencies区别
+      maven 使用dependencyManagement元素来提供了一种管理依赖版本号的方式
+      *通常会在一个组织或者项目的最顶层的父POM中看到dependencyManagement元素*
+
+      使用 pom.xml中的dependencyManagement元素能让所有在子项目中引用一个依赖而不用显示的列出版本号。
+      maven会沿着父子层依次往上走，直到找到一个拥有dependencyManagement元素的项目后，它会使用这个dependencyManagement中指定的版本号；
+      1、好处统一整个 项目的版本号，有利于后期升级或者切换版本号。
+      2、dependencyManagement只是用来定义引入以来的版本号，想要引入依赖还是需要在子项目中引入依赖（不需声明版本号）
+-->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.0.0</version>
+      </dependency>
+<!--      springboot 2.2.1-->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>2.2.1.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+<!--      spring cloud Hoxton.SR5-->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Hoxton.SR5</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+<!--      spring cloud alibaba-->
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <version>2.1.0.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+<!--      mysql-->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+<!--      druid-->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+<!--      mybatis-->
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatis.spring.boot.version}</version>
+      </dependency>
+<!--      junit-->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+<!--      log4j-->
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+        <fork>true</fork>
+        <addResources>true</addResources>
+      </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
